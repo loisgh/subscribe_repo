@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Subscription Upload</title>
+</head>
+{% block content %}
+  <div style="text-align: center">
+  <H2 style="font-family: Arial">Subscription Upload System</H2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="input_file">
+      <br/><br/>
+    <button type="submit">Upload</button>
+  </form>
+  </div>
+
+ <div style="text-align: center">
+  {% for key, value in error_dict.items %}
+  <table>
+        <tr><th colspan="2"><b>The Following Keys Had Errors</b></th></tr>
+        <tr><<th>Key</th><th>Errors</th>/tr>
+        <tr><td>{{ key }}</td><td>", ".join({{ value }})</td></tr>
+  </table>
+  {% endfor %}
+
+   {% if processed > 0 %}
+    <h4 style="font-family: Arial">Number of records processed: {{ processed }}</h4>
+   {% endif %}
+
+   {% if updated > 0 %}
+    <h4 style="font-family: Arial">Number of records updated: {{ updated }}</h4>
+   {% endif %}
+ </div>
+
+
+{% endblock %}
+</html>
