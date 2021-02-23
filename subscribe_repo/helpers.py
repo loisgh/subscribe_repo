@@ -85,7 +85,7 @@ def create_update_cust(cust, data):
         cust.cust_state = data[STATE]
         cust.cust_zip = data[ZIP]
         cust.cust_change_in_purchase_status = data[STATUS]
-        cust.prod_cst_id = data[PROD_cst_id]
+        cust.prod_id = data[PROD_cst_id]
         cust.prod_name = data[PROD_NAME]
         cust.prod_purchase_amount = float(data[PROD_COST])
         cust.mod_date = data[DATE]
