@@ -21,9 +21,9 @@ def parse_subs(data):
 
     cdata = re.split(r'\t+', data)
     cust = check_for_record(cdata[CUST_ID])
-    if not valcst_id_dates(cust, cdata):
+    if not val_dates(cust, cdata):
         error_dict = update_error_dict(error_dict, cdata[CUST_ID], "current mod date <= date on update record")
-    if not valcst_id_status(cust, cdata):
+    if not val_status(cust, cdata):
         error_dict = update_error_dict(error_dict, cdata[CUST_ID], "status is inconsistant")
     if not cdata[CUST_ID] in error_dict:
         create_update_cust(cust, cdata)
@@ -42,7 +42,7 @@ def update_error_dict(error_dict, cst_id, message):
     return error_dict
 
 
-def valcst_id_dates(cust, data):
+def val_dates(cust, data):
     try:
         the_date = parser.isoparse(data[DATE])
         if cust.mod_date >= the_date:
@@ -52,7 +52,7 @@ def valcst_id_dates(cust, data):
         return True
 
 
-def valcst_id_status(cust, data):
+def val_status(cust, data):
 
     if not cust:
         if data[STATUS] == 'canceled':
