@@ -1,10 +1,11 @@
 from dateutil import parser
 
+
 class Record:
     """This record is used to parse the input file"""
 
     def __init__(self, cust_id, first, last,
-                 addr, state, zip, status,
+                 addr, state, inzip, status,
                  prod_cust_id, prod_name,
                  prod_cost, date):
         self.cust_id = cust_id
@@ -12,7 +13,7 @@ class Record:
         self.last = last
         self.addr = addr
         self.state = state
-        self.zip = zip
+        self.inzip = inzip
         self.status = status
         self.prod_cust_id = prod_cust_id
         self.prod_name = prod_name

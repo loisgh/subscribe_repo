@@ -1,6 +1,7 @@
 from django.db import models
 import localflavor.us.forms
 
+
 class Customer(models.Model):
     PURCHASE_CHOICES = (('new', 'new'), ('canceled', 'canceled'))
     cust_id = models.IntegerField(null=False, primary_key=True, unique=True)
@@ -15,16 +16,16 @@ class Customer(models.Model):
     prod_purchase_amount = models.DecimalField(null=False, max_digits=5, decimal_places=2)
     mod_date = models.DateTimeField(null=False)
 
+    @staticmethod
     def check_for_customer(cst_id):
         try:
             cust = Customer.objects.get(pk=int(cst_id))
-            print("customer: {} DOES exist".format(cst_id))
         except Customer.DoesNotExist:
-            print("customer: {} does NOT exist".format(cst_id))
             cust = None
 
         return cust
 
+    @staticmethod
     def create_update_cust(cust, rec):
 
         if not cust:
@@ -34,7 +35,7 @@ class Customer(models.Model):
             cust.cust_last_name = rec.last
             cust.cust_address = rec.addr
             cust.cust_state = rec.state
-            cust.cust_zip = rec.zip
+            cust.cust_zip = rec.inzip
             cust.cust_change_in_purchase_status = rec.status
             cust.prod_id = rec.prod_cust_id
             cust.prod_name = rec.prod_name
@@ -47,30 +48,27 @@ class Customer(models.Model):
 
         cust.save()
 
+
+    @staticmethod
     def val_dates(cust, rec):
         try:
             if cust.mod_date >= rec.date:
-                print("The mod date on the record is >= the input date.")
                 return False
-            print("The mod date on the record is < the input date. This is good.")
             return True
         except AttributeError:
-            print("AttributeError. This is not a problem.")
             return True
 
+    @staticmethod
     def val_status(cust, rec):
 
         if not cust:
             if rec.status == 'canceled':
-                print("We don't have a customer so the status can't be cancelled")
                 return False
         else:
             if (cust.cust_change_in_purchase_status == 'canceled' and rec.status == 'new') or \
                (cust.cust_change_in_purchase_status == 'new' and rec.status == 'new') or \
                (cust.cust_change_in_purchase_status == 'canceled' and rec.status == 'canceled'):
-                print("We have a customer but the status is weird")
                 return False
-        print("The status is okay")
         return True
 
     def __repr__(self):

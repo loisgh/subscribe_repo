@@ -8,9 +8,9 @@ def parse_subs(infile):
 
     for line in infile:
         line = line.decode()
-        cust_id, first, last, addr, state, zip, status, \
+        cust_id, first, last, addr, state, inzip, status, \
         prod_cust_id, prod_name, prod_cost, date = line.strip().split('\t')
-        rec = (Record(cust_id, first, last, addr, state, zip, status, \
+        rec = (Record(cust_id, first, last, addr, state, inzip, status, \
                               prod_cust_id, prod_name, prod_cost, date))
 
         cust = Customer.check_for_customer(rec.cust_id)
