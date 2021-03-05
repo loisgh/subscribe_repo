@@ -15,15 +15,14 @@ python manage.py migrate
 If your migration runs correctly you will see the following lines
 
 Running migrations:
-  Applying subscribe_repo.0001_initial... OK
-  Applying subscribe_repo.0002_auto_20210212_2319... OK
-  Applying subscribe_repo.0003_auto_20210213_1624... OK
-  Applying subscribe_repo.0004_auto_20210213_2107... OK
+  Applying subscribe_repo.000... OK
 
 4) Run the Django Server: 
 Also run at the command line
 
 python manage.py runserver
+
+Please NOTE: That this job is NOT rerunnable. 
 
 5) Access the application: 
 You can access the application using hostname:8000/subrepo/upload
